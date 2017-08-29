@@ -10,4 +10,9 @@ io.on('connection', socket => {
     userLoggedMsg: `${socket.handshake.query.user} se juntou ao chat!`
   });
 
+  socket.on('sendMessage', data => {
+    console.log(data);
+    io.emit('myMessage', data);
+  });
+
 });

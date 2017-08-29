@@ -10,7 +10,11 @@ class Chat extends Component {
     this.state = {
       nickname: props.location.state ? props.location.state.nickname : '',
       messages: [],
+      userMessages: ''
     };
+
+      this.changeMessage = this.changeMessage.bind(this);
+      this.sendMessage = this.sendMessage.bind(this);
   }
 
   componentDidMount() {
@@ -23,10 +27,26 @@ class Chat extends Component {
     this.socket.on('user connected', ({userLoggedMsg}) => this.setState({
       messages: [...this.state.messages, userLoggedMsg]
     }));
+
+    this.socket.on('myMessage', (data) => this.setState({
+      messages: [...this.state.messages, data]
+    }));
+  }
+
+
+
+  sendMessage(e) {
+    console.log(this.state.userMessages);
+    this.socket.emit('sendMessage', this.state.userMessages, (data) => { console.log(data) });
+  }
+
+  changeMessage(e) {
+    e.preventDefault();
+    this.setState({userMessages: e.target.value});
   }
 
   render() {
-    const {nickname, messages} = this.state;
+    const {nickname, messages, userMessages} = this.state;
     return (
       <div className="App">
         <div className="App-header">
@@ -39,8 +59,8 @@ class Chat extends Component {
           </ul>
         </div>
         <p>
-          <input type="text" id="textToSend"/>
-          <button>Enviar</button>
+          <input type="text" id="textToSend" onChange={this.changeMessage} value={userMessages}/>
+          <button onClick={this.sendMessage}>Enviar</button>
         </p>
       </div>
     );
