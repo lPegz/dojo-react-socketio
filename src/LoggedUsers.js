@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-
+import './css/LoggedUsers.css'
 
 class LoggedUsers extends Component {
-
   constructor(props){
     super(props);
     this.socket = props.socket;
@@ -27,7 +26,7 @@ class LoggedUsers extends Component {
     console.log("Render: ", loggedUsers);
     console.log("Object ", Object.keys(loggedUsers));
     return (
-      <div>
+      <div className="box">
         <p>Users</p>
         <ul>
           {Object.keys(loggedUsers).map((loggedUser, index) => <li key={index}>{loggedUser}</li>)}
