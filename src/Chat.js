@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import io from 'socket.io-client';
+import LoggedUsers from './LoggedUsers';
 import './App.css';
 
 class Chat extends Component {
@@ -52,6 +53,7 @@ class Chat extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo"/>
           <h2>Chat App - {nickname}</h2>
+          <LoggedUsers socket={this.socket}/>
         </div>
         <div className="chat-area">
           <ul>
