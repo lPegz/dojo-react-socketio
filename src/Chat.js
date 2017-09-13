@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import logo from './logo.svg';
 import io from 'socket.io-client';
 import LoggedUsers from './LoggedUsers';
+import { Well , ListGroup, ListGroupItem, Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
+import './css/Chat.css'
 import './App.css';
 
 class Chat extends Component {
@@ -37,8 +39,7 @@ class Chat extends Component {
 
 
   sendMessage(e) {
-    console.log(this.state.userMessages);
-    this.socket.emit('sendMessage', this.state.userMessages, (data) => { console.log(data) });
+    this.socket.emit('sendMessage', this.state.userMessages, (data) => { /* onSuccess */ });
   }
 
   changeMessage(e) {
@@ -53,17 +54,24 @@ class Chat extends Component {
         <div className="App-header">
           <img src={logo} className="App-logo" alt="logo"/>
           <h2>Chat App - {nickname}</h2>
-          <LoggedUsers socket={this.socket}/>
         </div>
+        <LoggedUsers socket={this.socket}/>
         <div className="chat-area">
-          <ul>
-            {messages.map((message, index) => <li key={index}>{message}</li>)}
-          </ul>
+          <ListGroup>
+          <Well>
+            {messages.map((message, index) => <ListGroupItem bsStyle='info' key={index}>{message}</ListGroupItem>)}
+          </Well>
+          </ListGroup>
         </div>
-        <p>
-          <input type="text" id="textToSend" onChange={this.changeMessage} value={userMessages}/>
-          <button onClick={this.sendMessage}>Enviar</button>
-        </p>
+        <Form inline>
+          <FormGroup controlId="textToSend">
+          <ControlLabel>{nickname}</ControlLabel>
+          {' '}
+          <FormControl type="text" placeholder="diga algo" id="textToSend" onChange={this.changeMessage} value={userMessages}/>
+          </FormGroup>
+          {' '}
+          <Button onClick={this.sendMessage}>Enviar</Button>
+        </Form>
       </div>
     );
   }

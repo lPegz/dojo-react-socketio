@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { ListGroup , ListGroupItem } from 'react-bootstrap'
 import './css/LoggedUsers.css'
 
 class LoggedUsers extends Component {
@@ -27,10 +28,10 @@ class LoggedUsers extends Component {
     console.log("Object ", Object.keys(loggedUsers));
     return (
       <div className="box">
-        <p>Users</p>
-        <ul>
-          {Object.keys(loggedUsers).map((loggedUser, index) => <li key={index}>{loggedUser}</li>)}
-        </ul>
+        <ListGroup>
+        <ListGroupItem active>Users</ListGroupItem>
+          {Object.keys(loggedUsers).map((loggedUser, index) => <ListGroupItem bsStyle="info" key={index}>{loggedUser}</ListGroupItem>)}
+        </ListGroup>
       </div>
     );
   }
