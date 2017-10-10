@@ -3,8 +3,7 @@ import logo from './logo.svg';
 import io from 'socket.io-client';
 import LoggedUsers from './LoggedUsers';
 import { Well , ListGroup, ListGroupItem, Form, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap';
-import './css/Chat.css'
-import './App.css';
+import './css/Chat.css';
 
 class Chat extends Component {
   constructor(props) {
@@ -15,7 +14,6 @@ class Chat extends Component {
       messages: [],
       userMessages: ''
     };
-
       this.changeMessage = this.changeMessage.bind(this);
       this.sendMessage = this.sendMessage.bind(this);
   }
